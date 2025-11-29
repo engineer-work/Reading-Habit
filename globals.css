@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #0f0f11;
+  color: #e2e2e2;
+}
+
+/* Custom scrollbar for a cleaner look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a1d; 
+}
+::-webkit-scrollbar-thumb {
+  background: #333; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #444; 
+}
+
+/* Keyframes for the text reveal 'tearing' effect */
+@keyframes revealText {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.sync-reveal {
+  /* We use a gradient background that moves to reveal the text color */
+  background-image: linear-gradient(to right, #ffedd5 50%, #2a2a2a 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.sync-reveal.playing {
+  /* The duration is set dynamically via inline styles based on audio length */
+  animation: revealText linear forwards;
+}
+
+.sync-reveal.completed {
+  background: none;
+  -webkit-text-fill-color: #ffedd5; /* Finished color */
+  color: #ffedd5;
+}
+
+.sync-reveal.pending {
+  color: #2a2a2a; /* Dimmed future text */
+  -webkit-text-fill-color: #2a2a2a;
+}

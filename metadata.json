@@ -1,0 +1,5 @@
+{
+  "name": "Reading Habit",
+  "description": "An immersive audio-visual reading experience using Gemini 2.5 Flash TTS to synchronize voice and text reveal.",
+  "requestFramePermissions": []
+}
