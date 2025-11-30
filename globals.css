@@ -1,63 +1,123 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@400;500;600&family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&family=Montserrat:wght@400;600&display=swap');
+
+/* --- THEME DEFINITIONS --- */
+
+:root {
+  /* DEFAULT THEME: PAPER (Light Mode) */
+  --bg-main: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-input: #f4f4f5;   /* Zinc-100 */
+  --border-color: #e4e4e7; /* Zinc-200 */
+  --text-primary: #18181b; /* Zinc-900 (Deep Black for readability) */
+  --text-secondary: #71717a; /* Zinc-500 */
+  --accent-color: #2563eb; /* Blue-600 (Ballpoint Blue) */
+  
+  /* Default Text Highlight Colors (Can be overridden by Ink Selector) */
+  --highlight-read: #2563eb;     
+  --highlight-unread: #d4d4d8;   /* Zinc-300 */
+}
+
+/* --- THEME OVERRIDES --- */
+
+.theme-paper {
+  /* Explicit Paper Theme */
+  --bg-main: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-input: #f4f4f5;
+  --border-color: #e4e4e7;
+  --text-primary: #18181b;
+  --text-secondary: #71717a;
+  --accent-color: #2563eb;
+  
+  --highlight-read: #2563eb;
+  --highlight-unread: #d4d4d8;
+}
+
+.theme-midnight {
+  /* Dark Mode Option */
+  --bg-main: #09090b; /* Zinc-950 */
+  --bg-surface: #18181b; /* Zinc-900 */
+  --bg-input: #27272a; /* Zinc-800 */
+  --border-color: #3f3f46; /* Zinc-700 */
+  --text-primary: #f4f4f5; /* Zinc-100 */
+  --text-secondary: #a1a1aa; /* Zinc-400 */
+  --accent-color: #ea580c; /* Orange */
+  
+  --highlight-read: #fff7ed;
+  --highlight-unread: #52525b;
+}
+
+.theme-sepia {
+  /* Warm paper tones */
+  --bg-main: #fcf6e3;
+  --bg-surface: #fdfaf0;
+  --bg-input: #eee6cf;
+  --border-color: #dccfb2;
+  --text-primary: #433422; 
+  --text-secondary: #8c7b66;
+  --accent-color: #b45309; 
+
+  --highlight-read: #433422;    
+  --highlight-unread: #dccfb2;   
+}
+
+.theme-forest {
+  /* Dark Green */
+  --bg-main: #0f1e16;
+  --bg-surface: #162e21;
+  --bg-input: #0a140f;
+  --border-color: #254633;
+  --text-primary: #e6f4ed;
+  --text-secondary: #8ca598;
+  --accent-color: #10b981; 
+
+  --highlight-read: #ffffff;
+  --highlight-unread: #3f5246;
+}
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #0f0f11;
-  color: #e2e2e2;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Custom scrollbar for a cleaner look */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #1a1a1d; 
+  background: var(--bg-input); 
 }
 ::-webkit-scrollbar-thumb {
-  background: #333; 
-  border-radius: 4px;
+  background: var(--border-color); 
+  border-radius: 5px;
+  border: 2px solid var(--bg-input);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #444; 
+  background: var(--text-secondary); 
 }
 
-/* Keyframes for the text reveal 'tearing' effect */
-@keyframes revealText {
-  0% {
-    background-position: 100% 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-.sync-reveal {
-  /* We use a gradient background that moves to reveal the text color */
-  background-image: linear-gradient(to right, #ffedd5 50%, #2a2a2a 50%);
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
 }
 
-.sync-reveal.playing {
-  /* The duration is set dynamically via inline styles based on audio length */
-  animation: revealText linear forwards;
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out forwards;
 }
 
-.sync-reveal.completed {
-  background: none;
-  -webkit-text-fill-color: #ffedd5; /* Finished color */
-  color: #ffedd5;
-}
-
-.sync-reveal.pending {
-  color: #2a2a2a; /* Dimmed future text */
-  -webkit-text-fill-color: #2a2a2a;
+.animate-slideUp {
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

@@ -1,3 +1,4 @@
+
 export interface SentenceData {
   id: number;
   text: string;
@@ -19,19 +20,59 @@ export enum TTSMode {
   NATIVE = 'NATIVE'
 }
 
+export enum AppTheme {
+  MIDNIGHT = 'theme-midnight',
+  SEPIA = 'theme-sepia',
+  FOREST = 'theme-forest',
+  PAPER = 'theme-paper'
+}
+
 export interface AudioSegment {
   audioBuffer: AudioBuffer;
   duration: number; // in seconds
 }
 
-// --- New Types for Library/Admin System ---
-
+// --- VIEW MODEL (What the UI sees) ---
 export interface LibraryItem {
   id: string;
   title: string;
-  author: string;
-  category: string; // Acts as "Folder"
+  author: string; // "Name [details]"
+  category: string; // "A/B/C"
   text: string;
+  createdAt: number;
+}
+
+// --- V2 RELATIONAL STORAGE MODELS (What is saved in JSON) ---
+
+export interface DataStore {
+  meta: {
+    version: string; // "2.0"
+    exportedAt: string;
+  };
+  taxonomy: CategoryNodeV2[];
+  authors: AuthorProfile[];
+  library: LibraryItemV2[];
+}
+
+export interface CategoryNodeV2 {
+  id: string;
+  name: string;
+  slug: string;
+  parentId: string | null;
+}
+
+export interface AuthorProfile {
+  id: string;
+  name: string;
+  details: string; // "dob : ... | email ..."
+}
+
+export interface LibraryItemV2 {
+  id: string;
+  title: string;
+  authorId: string;   // Relational Link
+  categoryId: string; // Relational Link
+  text: string;       // We could break this into blocks later, but keeping text for compatibility
   createdAt: number;
 }
 
