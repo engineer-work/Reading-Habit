@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
-            base: "/reading-habit/",   // <<< IMPORTANT for GitHub Pages
+            base: "/Reading-Habit/",   // <<< IMPORTANT for GitHub Pages
 
       server: {
         port: 3000,
